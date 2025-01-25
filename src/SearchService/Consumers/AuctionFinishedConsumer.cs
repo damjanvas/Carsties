@@ -11,8 +11,7 @@ public class AuctionFinishedConsumer : IConsumer<AuctionFinished>
     {
         Console.WriteLine("--> Consuming bid placed");
 
-        var auction = await DB.Find<Item>().OneAsync(context.Message.AuctionId)
-            ?? throw new MessageException(typeof(AuctionFinished), "Cannot retrieve this auction");
+        var auction = await DB.Find<Item>().OneAsync(context.Message.AuctionId);
         
         if (context.Message.ItemSold)
         {
