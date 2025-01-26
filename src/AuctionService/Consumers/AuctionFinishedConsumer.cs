@@ -10,7 +10,7 @@ public class AuctionFinishedConsumer : IConsumer<AuctionFinished>
 {
     private readonly AuctionDbContext _dbContext;
 
-    AuctionFinishedConsumer(AuctionDbContext dbContext)
+    public AuctionFinishedConsumer(AuctionDbContext dbContext)
     {
         _dbContext = dbContext;
     }
