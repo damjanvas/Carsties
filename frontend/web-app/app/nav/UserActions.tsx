@@ -15,22 +15,30 @@ type Props = {
 }
 
 export default function UserActions({ user }: Props) {
+  const setParams = useParamsStore(state => state.setParams);
   const router = useRouter();
+  const pathname = usePathname();
+
+  function setWinner() {
+    setParams({winner: user.username, seller: undefined});
+    if (pathname !== '/') router.push('/'); 
+  }
+
+  function setSeller() {
+    setParams({seller: user.username, winner: undefined});
+    if (pathname !== '/') router.push('/'); 
+  }
 
   return (
     <Dropdown inline label={`Welcome ${user.name}`}>
-      <DropdownItem icon={HiUser}>
-        <Link href="/">
+      <DropdownItem icon={HiUser} onClick={setSeller}>
           My Auctions
-        </Link>
       </DropdownItem>
-      <DropdownItem icon={AiFillTrophy}>
-        <Link href="/">
+      <DropdownItem icon={AiFillTrophy} onClick={setWinner}>
           Auctions won
-        </Link>
       </DropdownItem>
       <DropdownItem icon={AiFillCar}>
-        <Link href='/'>
+        <Link href='/auctions/create'>
           Sell my car
         </Link>
       </DropdownItem>
